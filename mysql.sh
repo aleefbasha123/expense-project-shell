@@ -19,7 +19,7 @@ VLAIDATE (){
     fi
 }
 
-if [ USEID -ne 0 ]
+if [ USERID -ne 0 ]
 then
      echo "Please run the script with root user"
      exit 1 # manually exit if error comes"
