@@ -55,12 +55,15 @@ curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/expense-back
 VALIDATE $? "Downloading the code"
 cd /app 
 
-unzip /tmp/backend.zip  &>>LOGFILE
+unzip -o /tmp/backend.zip  &>>LOGFILE
 VALIDATE $? "Unzipping the application"
 
 cd /app 
 npm install &>>LOGFILE
 VALIDATE $? "Insatlling Dependences"
+
+cp /root/expense-project-shell/backend.service  /etc/systemd/system/backend.service  &>>LOGFILE
+VALIDATE $? "Coping backend services"
 
 systemctl daemon-reload &>>LOGFILE
 VALIDATE $? "Reloading deamon"
