@@ -39,11 +39,12 @@ VALIDATE $? "Insatalling nodejs"
 #useradd expense &>>LOGFILE
 #VALIDATE $? "Adding expense user"
 
-if [ $user -ne 0 ]
+id expense
+if [ $? -ne 0 ]
 then
     useradd expense
-    VALIDATE $? "Adding Expense user"
+    VALIDATE $? "Creating Expense user"
 else
-     echo "user alrady exsiting"
+     echo "Expense user alrady Crated...$Y SKIPPING $N"
 fi
 
