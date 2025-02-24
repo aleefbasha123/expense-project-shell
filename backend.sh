@@ -48,31 +48,31 @@ else
      echo -e "Expense user alrady Crated...$Y SKIPPING $N"
 fi
 
-mkdir -p /app  -y &>>LOGFILE
+mkdir -p /app  -&>>LOGFILE
 VALIDATE $? "Creating app directory"
 
-curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/expense-backend-v2.zip  -y &>>LOGFILE
+curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/expense-backend-v2.zip  &>>LOGFILE
 VALIDATE $? "Downloading the code"
 cd /app 
 
-unzip /tmp/backend.zip -y &>>LOGFILE
+unzip /tmp/backend.zip  &>>LOGFILE
 VALIDATE $? "Unzipping the application"
 
 cd /app 
-npm install -y &>>LOGFILE
+npm install &>>LOGFILE
 VALIDATE $? "Insatlling Dependences"
 
-systemctl daemon-reload -y &>>LOGFILE
+systemctl daemon-reload &>>LOGFILE
 VALIDATE $? "Reloading deamon"
 
-systemctl enable backend -y &>>LOGFILE
+systemctl enable backend &>>LOGFILE
 VALIDATE $? "Enabeling backend applcaition"
 
-systemctl start backend -y &>>LOGFILE
+systemctl start backend  &>>LOGFILE
 VALIDATE $? "Starting application"
 
-dnf install mysql -y -y &>>LOGFILE
+dnf install mysql -y &>>LOGFILE
 VALIDATE $? "Insatlling mysql"
 
-mysql -h 172.31.45.4 -uroot -pExpenseApp@1 < /app/schema/backend.sql -y &>>LOGFILE
+mysql -h 172.31.45.4 -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>LOGFILE
 VALIDATE $? "Loading schema file" 
