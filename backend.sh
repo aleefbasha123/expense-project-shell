@@ -48,3 +48,5 @@ else
      echo -e "Expense user alrady Crated...$Y SKIPPING $N"
 fi
 
+mkdir /app 
+VALIDATE $? "Creating app directory"
