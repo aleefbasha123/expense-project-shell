@@ -39,7 +39,7 @@ VALIDATE $? "Insatalling nodejs"
 #useradd expense &>>LOGFILE
 #VALIDATE $? "Adding expense user"
 
-id expense
+id expense -y &>>LOGFILE
 if [ $? -ne 0 ]
 then
     useradd expense
@@ -48,5 +48,31 @@ else
      echo -e "Expense user alrady Crated...$Y SKIPPING $N"
 fi
 
-mkdir -p /app 
+mkdir -p /app  -y &>>LOGFILE
 VALIDATE $? "Creating app directory"
+
+curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/expense-backend-v2.zip  -y &>>LOGFILE
+VALIDATE $? "Downloading the code"
+cd /app 
+
+unzip /tmp/backend.zip -y &>>LOGFILE
+VALIDATE $? "Unzipping the application"
+
+cd /app 
+npm install -y &>>LOGFILE
+VALIDATE $? "Insatlling Dependences"
+
+systemctl daemon-reload -y &>>LOGFILE
+VALIDATE $? "Reloading deamon"
+
+systemctl enable backend -y &>>LOGFILE
+VALIDATE $? "Enabeling backend applcaition"
+
+systemctl start backend -y &>>LOGFILE
+VALIDATE $? "Starting application"
+
+dnf install mysql -y -y &>>LOGFILE
+VALIDATE $? "Insatlling mysql"
+
+mysql -h 172.31.45.4 -uroot -pExpenseApp@1 < /app/schema/backend.sql -y &>>LOGFILE
+VALIDATE $? "Loading schema file" 
