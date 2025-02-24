@@ -51,3 +51,6 @@ VALIDATE $? "Starting MySQL Server"
 #else
  #   echo -e "MySQL Root password is already setup...$Y SKIPPING $N"
 #fi
+
+#mysql -h 172.31.45.4 -uroot -pExpenseApp@1 -e 'SHOW DATABASES'
+#checking schemas
