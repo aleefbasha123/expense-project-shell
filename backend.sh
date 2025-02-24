@@ -54,6 +54,8 @@ VALIDATE $? "Creating app directory"
 curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/expense-backend-v2.zip  &>>LOGFILE
 VALIDATE $? "Downloading the code"
 cd /app 
+rm -rf /app/*
+VALIDATE $? "Removing all content"
 
 unzip -o /tmp/backend.zip  &>>LOGFILE
 VALIDATE $? "Unzipping the application"
